@@ -1,0 +1,58 @@
+html, body {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+main {
+    flex-grow: 1;
+}
+
+hr {
+    clear:both;
+    display:block;
+    width: 98%;
+    background-color:#CCC;
+    height: 1px;
+}
+
+#icon_sk {
+    width: 80px;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.primary-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.primary-navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.primary-navigation > * {
+    padding: 8px;
+}
+
+/* footer {
+    background-image: url("mahdi-soheili-3wxiKqC9KSA-unsplash.jpg");
+} */
+
+#news {
+    max-height: 200px;
+    overflow-y: scroll;
+}
