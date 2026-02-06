@@ -3,6 +3,7 @@ html, body {
     border: 0;
     padding: 0;
     height: 100%;
+    scrollbar-width: none;
 }
 
 body {
@@ -16,8 +17,8 @@ main {
 }
 
 hr {
-    clear:both;
-    display:block;
+    clear: both;
+    display: block;
     width: 98%;
     background-color:#CCC;
     height: 1px;
@@ -29,6 +30,7 @@ hr {
 
 .container {
     max-width: 800px;
+    margin: 0 16px;
 }
 
 .primary-header {
@@ -42,6 +44,23 @@ hr {
 .primary-navigation {
     display: flex;
     flex-direction: row;
+}
+
+.primary-navigation > p {
+    background: lavender;
+}
+.primary-navigation > a {
+    text-decoration: none;
+    color: #06f;
+}
+
+.primary-navigation > a:hover {
+    background: lavender;
+}
+
+.primary-navigation > a[href="#"] {
+    /* color: gray; */
+    cursor: not-allowed;
 }
 
 .primary-navigation > * {
