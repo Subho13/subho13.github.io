@@ -1,59 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subho's site</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Subhojyoti Khastagir · PhD Scholar, IIT Kharagpur</title>
+  <meta name="description" content="Subhojyoti Khastagir is a PhD scholar at IIT Kharagpur working on generative AI for the discovery of crystalline materials.">
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <!-- Social-preview card (link previews on X, LinkedIn, Slack) -->
+  <meta property="og:title" content="Subhojyoti Khastagir">
+  <meta property="og:description" content="Generative AI for materials discovery · PhD Scholar, IIT Kharagpur">
+  <!--<meta property="og:image" content="photo.jpg">-->
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Color tokens ---------- */
+    :root {
+      --bg: #fbfaf7;
+      --surface: #ffffff;
+      --text: #1d2126;
+      --muted: #5d6670;
+      --faint: #8a939c;
+      --rule: #e6e2da;
+      --accent: #0f6b74;          /* deep teal */
+      --accent-soft: #e3f1f1;
+      --badge-main: #0f6b74;
+      --badge-ws: #8a5a14;
+      --badge-ws-soft: #f6ecd9;
+      --code-bg: #f3f1ec;
+      --thumb-a: #cfe6e4;
+      --thumb-b: #e9dcc4;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #14171a; --surface: #1b1f23; --text: #e6e8ea; --muted: #a3acb5;
+        --faint: #7a848d; --rule: #2c3238; --accent: #5cc3c9; --accent-soft: #1d3436;
+        --badge-main: #5cc3c9; --badge-ws: #e0b36a; --badge-ws-soft: #3a2f1c;
+        --code-bg: #20252a; --thumb-a: #1f3a3c; --thumb-b: #3a3222;
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #14171a; --surface: #1b1f23; --text: #e6e8ea; --muted: #a3acb5;
+      --faint: #7a848d; --rule: #2c3238; --accent: #5cc3c9; --accent-soft: #1d3436;
+      --badge-main: #5cc3c9; --badge-ws: #e0b36a; --badge-ws-soft: #3a2f1c;
+      --code-bg: #20252a; --thumb-a: #1f3a3c; --thumb-b: #3a3222;
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font: 16px/1.65 "Inter", system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; text-underline-offset: 3px; }
+    h1, h2, h3 { font-family: "Source Serif 4", Georgia, serif; line-height: 1.25; }
+    .wrap { max-width: 840px; margin: 0 auto; padding: 0 16px; }
+
+    /* ---------- Nav ---------- */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px); border-bottom: 1px solid var(--rule);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+    nav .brand { font-family: "Source Serif 4", serif; font-weight: 600; color: var(--text); white-space: nowrap; }
+    nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav ul a { color: var(--muted); font-size: 14px; font-weight: 500; white-space: nowrap; }
+    nav ul a:hover { color: var(--accent); text-decoration: none; }
+    .theme-btn {
+      background: none; border: 1px solid var(--rule); color: var(--muted);
+      border-radius: 8px; width: 34px; height: 34px; cursor: pointer; flex-shrink: 0; font-size: 15px;
+    }
+
+    /* ---------- Header / hero ---------- */
+    header { padding: 56px 0 24px; }
+    .hero { display: grid; grid-template-columns: 180px 1fr; gap: 36px; align-items: center; }
+    .photo {
+      width: 180px; height: 180px; border-radius: 50%; object-fit: cover;
+      border: 4px solid var(--surface); box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+    .monogram {
+      width: 180px; height: 180px; border-radius: 50%; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--thumb-a), var(--thumb-b));
+      font: 600 64px "Source Serif 4", serif; color: var(--accent);
+    }
+    h1 { font-size: 40px; margin: 0 0 4px; letter-spacing: -0.01em; }
+    .role { color: var(--muted); margin: 0; }
+    .role strong { color: var(--text); font-weight: 600; }
+    .status {
+      display: inline-block; margin-top: 14px; padding: 6px 12px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent); font-size: 14px; font-weight: 500;
+    }
+    .links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .links a {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+      border: 1px solid var(--rule); border-radius: 8px; background: var(--surface);
+      color: var(--text); font-size: 14px; font-weight: 500;
+    }
+    .links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .links svg { width: 15px; height: 15px; fill: currentColor; }
+
+    /* ---------- Sections ---------- */
+    section { padding: 36px 0; border-top: 1px solid var(--rule); }
+    section:first-of-type { border-top: none; }
+    h2 { font-size: 26px; margin: 0 0 20px; }
+    p { margin: 0 0 14px; }
+    .bio p { font-size: 17px; }
+
+    /* News */
+    .news { list-style: none; margin: 0; padding: 0; }
+    .news li { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 8px 0; }
+    .news time { color: var(--faint); font-size: 14px; font-variant-numeric: tabular-nums; padding-top: 1px; }
+    details.older summary { cursor: pointer; color: var(--accent); font-size: 14px; font-weight: 500; margin-top: 8px; }
+
+    /* Publications */
+    .pub { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 18px 0; }
+    .pub + .pub { border-top: 1px dashed var(--rule); }
+    .thumb {
+      width: 200px; aspect-ratio: 3 / 2; border-radius: 10px; overflow: hidden;
+      background: linear-gradient(135deg, var(--thumb-a), var(--thumb-b));
+      display: grid; place-items: center; color: var(--muted); font-size: 12px;
+    }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .pub h3 { font-size: 18px; margin: 0 0 6px; }
+    .authors { color: var(--muted); font-size: 15px; margin: 0 0 6px; }
+    .authors b { color: var(--text); font-weight: 600; }
+    .venue { font-size: 14px; margin: 0 0 10px; color: var(--muted); }
+    .badge {
+      display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: .02em;
+      padding: 2px 8px; border-radius: 6px; margin-right: 6px;
+      color: var(--badge-main); background: var(--accent-soft);
+    }
+    .badge.ws { color: var(--badge-ws); background: var(--badge-ws-soft); }
+    .tldr { font-size: 15px; margin: 0 0 10px; }
+    .pub-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .pub-links a, .pub-links summary {
+      font-size: 13px; font-weight: 500; padding: 3px 10px; border-radius: 6px;
+      border: 1px solid var(--rule); color: var(--text); background: var(--surface); cursor: pointer;
+      list-style: none;
+    }
+    .pub-links summary::-webkit-details-marker { display: none; }
+    .pub-links a:hover, .pub-links summary:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+    .pub-links details { display: contents; }
+    .pub-links details[open] summary { border-color: var(--accent); color: var(--accent); }
+    pre.bib {
+      flex-basis: 100%; margin: 8px 0 0; padding: 12px 14px; border-radius: 8px;
+      background: var(--code-bg); font: 12.5px/1.55 "JetBrains Mono", monospace;
+      overflow-x: auto; white-space: pre;
+    }
+    .equal { font-size: 13px; color: var(--faint); margin-top: 12px; }
+
+    /* Research (enabled later) */
+    .theme-block { display: grid; grid-template-columns: 1fr 220px; gap: 24px; padding: 14px 0; }
+    .theme-block h3 { font-size: 18px; margin: 0 0 6px; }
+
+    /* Generic lists (talks, teaching, service) */
+    .entries { list-style: none; margin: 0; padding: 0; }
+    .entries li { padding: 8px 0; }
+    .entries .meta { color: var(--faint); font-size: 14px; }
+
+    footer { border-top: 1px solid var(--rule); padding: 28px 0 48px; color: var(--faint); font-size: 14px; }
+    footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 640px) {
+      nav .brand { display: none; }
+      header { padding-top: 32px; }
+      .hero { grid-template-columns: 1fr; gap: 20px; justify-items: start; }
+      .photo, .monogram { width: 128px; height: 128px; font-size: 46px; }
+      h1 { font-size: 32px; }
+      .news li { grid-template-columns: 1fr; gap: 0; }
+      .pub, .theme-block { grid-template-columns: 1fr; gap: 12px; }
+      .thumb { width: 100%; }
+    }
+  </style>
 </head>
+
 <body>
-    <header class="primary-header container">
-        <a href="#"><img id="icon_sk" src="l1_a.png" alt="My website"></a>
-        <!-- <h3>SK</h3> -->
-        <nav class="primary-navigation">
-            <p style="margin: 0;">Home</p>
-            <a href="#" title="Under construction">Blog</a>
-            <a href="publications.html">Publications</a>
-            <a href="education.html">Education</a>
-            <a href="#" title="Under construction">Misc</a>
-        </nav>
-    </header>
-    <hr/>
+  <!-- ======================= NAV ======================= -->
+  <nav>
+    <div class="wrap">
+      <a class="brand" href="#top">Subhojyoti Khastagir</a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#teaching">Teaching</a></li>
+        <li><a href="#service">Service</a></li>
+        <li><a href="cv.pdf">CV</a></li>
+      </ul>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">◐</button>
+    </div>
+  </nav>
 
-    <main class="container">
+  <!-- ======================= HEADER ======================= -->
+  <header id="top">
+    <div class="wrap hero">
+      <div id="photoSlot">
+        <img class="photo" src="photo.jpg" alt="Photo of Subhojyoti Khastagir"
+             onerror="this.outerHTML='<div class=&quot;monogram&quot;>SK</div>'">
+      </div>
+      <div>
         <h1>Subhojyoti Khastagir</h1>
-        <h2>PhD, Indian Institute of Technology, Kharagpur</h2>
+        <p class="role"><strong>PhD Scholar</strong>, Department of Artificial Intelligence<br>
+          Indian Institute of Technology Kharagpur</p>
+        <p class="role">Advised by <a href="https://www.iitkgp.ac.in/department/CS/faculty/cs-niloy">Prof. Niloy Ganguly</a> and <a href="https://cse.iitkgp.ac.in/~pawang/">Prof. Pawan Goyal</a></p>
 
+        <div class="links">
+          <a id="email" href="#" data-user="skhastagir.24" data-domain="kgpian.iitkgp.ac.in">
+            <svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4.4 7H19.6L12 12.2zM4 8.6V17h16V8.6l-8 5.5-8-5.5z"/></svg>Email
+          </a>
+          <a href="https://scholar.google.com/citations?user=hpSmwEUAAAAJ">
+            <svg viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17h2V9L12 3zm-6 9.6V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-3.4l-6 3.3-6-3.3z"/></svg>Scholar
+          </a>
+          <a href="https://github.com/Subho13">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.4-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>GitHub
+          </a>
+          <a href="https://openreview.net/profile?id=~Subhojyoti_Khastagir1">
+            <svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6V2zm8 1.5V8h4.5L14 3.5zM8 12h10v1.5H8V12zm0 3h10v1.5H8V15zm0 3h7v1.5H8V18z"/></svg>OpenReview
+          </a>
+          <a href="https://www.linkedin.com/in/subhojyoti-khastagir-2a4716152">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3V9.5zm7 0h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6.1V21h-4v-5.1c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4V9.5z"/></svg>LinkedIn
+          </a>
+          <a href="cv.pdf">
+            <svg viewBox="0 0 24 24"><path d="M12 16 6.5 10.5l1.4-1.4 3.1 3.1V3h2v9.2l3.1-3.1 1.4 1.4L12 16zM4 19h16v2H4v-2z"/></svg>CV
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
 
-        <p>Subhojyoti Khastagir <em>aka Subho</em> is a research scholar, pursuing PhD at the Department of Artificial Intelligence at Indian Institute of Technology, Kharagpur. He is working under the guidance of Dr. Niloy Ganguly and Dr. Pawan Goyal, and is a member of <a href="https://cnerg-iitkgp.github.io/">CNeRG</a>. His interests are in Artificial Intelligence and Deep Learning, with a particular focus on Graph Machine Learning and Generative AI models.</p>
+  <main class="wrap">
 
-        <p>Subho received his M.Tech in Computer Science and Engineering from the Indian Institue of Science Bangalore, supervised by <a href="https://www.shishirny.com/">Dr. Shishir Kolathaya</a>. He received his B.Tech degree in Information Technology from the Indian Institute of Engineering Science and Technology Shibpur.</p>
+    <!-- ======================= ABOUT ======================= -->
+    <section id="about" class="bio">
+      <h2>About</h2>
+      <p>
+        I am a PhD scholar in the Department of Artificial Intelligence at IIT Kharagpur,
+        where I build generative AI models that accelerate the discovery of new
+        <strong>crystalline materials</strong>.
+      </p>
+      <p>
+        My work spans equivariant graph neural networks, latent diffusion models,
+        autoregressive language models, and flow matching, applied to crystal structure
+        generation and <strong>property-conditioned inverse design</strong>, that is,
+        generating stable materials that have a desired target property.
+      </p>
+    </section>
 
-        <h2>Research Interests</h2>
-        <ul>
-            <li>Graph Machine Learning</li>
-            <li>Generative AI (diffusion models, autoencoders)</li>
+    <!-- ======================= NEWS ======================= -->
+    <section id="news">
+      <h2>News</h2>
+      <ul class="news">
+        <!-- Newest first. Keep 5–8 items here; move older ones into "Older news" below. -->
+        <li><time>Sep 2025</time><span><a href="#pub-crysllmgen">CrysLLMGen</a> accepted at <strong>NeurIPS 2025</strong> (main track).</span></li>
+        <li><time>Mar 2025</time><span><a href="#pub-crysldm">CrysLDM</a> accepted at the <strong>ICLR 2025 AI4Mat workshop</strong>.</span></li>
+        <li><time>Jan 2025</time><span><a href="#pub-tgdmat">TGDMat</a> accepted at <strong>ICLR 2025</strong> (main track).</span></li>
+      </ul>
+      <!--
+      <details class="older">
+        <summary>Older news</summary>
+        <ul class="news">
+          <li><time>MMM 2024</time><span>…</span></li>
         </ul>
-        <p>Graphs have the agility to represent a variety of problems that exist in society. I would like to not only look into ways of devising better and richer representations of real world problems in terms of graphs, but also to find innovative solutions and ways of approaching the problems. I am especially interested in applications like discovery of novel materials, molecules and drugs.</p>
-        <p>I am also eager to learn more about generative AI and the ways in which AI can improve quality of life. I wish to contribute a drop of my meager knowledge to the development of mankind as a whole.</p>
+      </details>
+      -->
+    </section>
 
-        <h2>News and updates:</h2>
-        <ul id="news">
-            <!-- <h3>2024</h3>
-            <li>July: Joined IIT Kgp as a PhD scholar in the Department of Artificial Intelligence.</li> -->
-            <h3>2023</h3>
-            <li>July: Joined CNeRG at IIT Kgp as a research associate</li>
-        </ul>
-    </main>
-    <footer>
-        <a href="emailto:skhastagir98@gmail.com">Email</span></a>
-        <a href="https://scholar.google.com/citations?user=hpSmwEUAAAAJ&hl=en&oi=ao">Google scholar</span></a>
-        <a href="https://www.linkedin.com/in/subhojyoti-khastagir-2a4716152/">LinkedIn</span></a>
-        <a href="https://github.com/subho13">Github</span></a>
-    </footer>
+    <!-- ======================= PUBLICATIONS ======================= -->
+    <section id="publications">
+      <h2>Publications</h2>
 
-    <script type="module" src="main.js"></script>
+      <article class="pub" id="pub-crysllmgen">
+        <div class="thumb">
+          <!-- <img src="images/crysllmgen.png" alt="CrysLLMGen overview figure"> -->
+          Figure
+        </div>
+        <div>
+          <h3>LLM Meets Diffusion: A Hybrid Framework for Crystal Material Generation</h3>
+          <p class="authors"><b>Subhojyoti Khastagir</b>*, Kishalay Das*, Pawan Goyal, Seung-Cheol Lee, Satadeep Bhattacharjee, Niloy Ganguly</p>
+          <p class="venue"><span class="badge">NeurIPS 2025</span>Conference on Neural Information Processing Systems</p>
+          <p class="tldr">A hybrid framework that combines a large language model with a diffusion model for crystal generation and property-conditioned inverse design.</p>
+          <div class="pub-links">
+            <a href="https://proceedings.neurips.cc/paper_files/paper/2025/file/f789a628fca473e922c806657512a20f-Paper-Conference.pdf">Paper</a>
+            <a href="https://arxiv.org/abs/2510.23040">arXiv</a>
+            <a href="https://github.com/kdmsit/crysllmgen">Code</a>
+            <a href="https://neurips.cc/media/PosterPDFs/NeurIPS%202025/119163.png?t=1763527819.7493942">Poster</a>
+            <details>
+              <summary>BibTeX</summary>
+<pre class="bib">@inproceedings{khastagir2025crysllmgen,
+    author = {Khastagir, Subhojyoti and DAS, KISHALAY and Goyal, Pawan and Lee, Seung-Cheol and Bhattacharjee, Satadeep and ganguly, niloy},
+    booktitle = {Advances in Neural Information Processing Systems},
+    doi = {10.52202/085713-5635},
+    editor = {D. Belgrave and C. Zhang and H. Lin and R. Pascanu and P. Koniusz and M. Ghassemi and N. Chen},
+    pages = {169190--169215},
+    publisher = {Curran Associates, Inc.},
+    title = {LLM Meets Diffusion: A Hybrid Framework for Crystal Material Generation},
+    url = {https://proceedings.neurips.cc/paper_files/paper/2025/file/f789a628fca473e922c806657512a20f-Paper-Conference.pdf},
+    volume = {38, Main Conference},
+    year = {2025}
+}</pre>
+            </details>
+          </div>
+        </div>
+      </article>
+
+      <article class="pub" id="pub-crysldm">
+        <div class="thumb">
+          <!-- <img src="images/crysldm.png" alt="CrysLDM overview figure"> -->
+          Figure
+        </div>
+        <div>
+          <h3>CrysLDM: Latent Diffusion Model for Crystal Material Generation</h3>
+          <p class="authors"><b>Subhojyoti Khastagir</b>, Kishalay Das ⋅ Pawan Goyal ⋅ Seung-Cheol Lee ⋅ Satadeep Bhattacharjee ⋅ Niloy Ganguly</p>
+          <p class="venue"><span class="badge ws">AI4MAT-ICLR-2025</span>AI for Accelerated Materials Design (AI4Mat)  Workshop</p>
+          <p class="tldr">A latent diffusion model for generating periodic crystal structures.</p>
+          <div class="pub-links">
+            <a href="https://openreview.net/forum?id=mhe4EejyAS#discussion">OpenReview</a>
+            <details>
+              <summary>BibTeX</summary>
+<pre class="bib">@inproceedings{khastagir2025crysldm,
+    title={Crys{LDM}: Latent Diffusion Model for Crystal Material Generation},
+    author={Subhojyoti Khastagir and KISHALAY DAS and Pawan Goyal and Seung-Cheol Lee and Satadeep Bhattacharjee and Niloy Ganguly},
+    booktitle={AI for Accelerated Materials Design - ICLR 2025},
+    year={2025},
+    url={https://openreview.net/forum?id=mhe4EejyAS}
+}</pre>
+            </details>
+          </div>
+        </div>
+      </article>
+
+      <article class="pub" id="pub-tgdmat">
+        <div class="thumb">
+          <!-- <img src="images/tgdmat.png" alt="TGDMat overview figure"> -->
+          Figure
+        </div>
+        <div>
+          <h3>Periodic Materials Generation using Text-Guided Joint Diffusion Model</h3>
+          <p class="authors">Kishalay Das, <b>Subhojyoti Khastagir</b>, Pawan Goyal, Seung-Cheol Lee, Satadeep Bhattacharjee, Niloy Ganguly</p>
+          <p class="venue"><span class="badge">NeurIPS 2025</span>Conference on Neural Information Processing Systems (Main Track)</p>
+          <p class="tldr">A joint diffusion framework that uses text guidance for generating periodic crystal structures.</p>
+          <div class="pub-links">
+            <a href="https://proceedings.iclr.cc/paper_files/paper/2025/file/24e4e3234178a836b70e0aa48827e0ff-Paper-Conference.pdf">Paper</a>
+            <a href="https://arxiv.org/abs/2503.00522">arXiv</a>
+            <a href="https://github.com/kdmsit/TGDMat">Code</a>
+            <a href="https://iclr.cc/media/PosterPDFs/ICLR%202025/30619.png?t=1743917747.0080366">Poster</a>
+            <details>
+              <summary>BibTeX</summary>
+<pre class="bib">@inproceedings{das2025crysllmgen,
+    author = {DAS, KISHALAY and Khastagir, Subhojyoti and Goyal, Pawan and Lee, Seung-Cheol and Bhattacharjee, Satadeep and Ganguly, Niloy},
+    booktitle = {International Conference on Learning Representations},
+    editor = {Y. Yue and A. Garg and N. Peng and F. Sha and R. Yu},
+    pages = {14080--14110},
+    title = {Periodic Materials Generation using Text-Guided Joint Diffusion Model},
+    url = {https://proceedings.iclr.cc/paper_files/paper/2025/file/24e4e3234178a836b70e0aa48827e0ff-Paper-Conference.pdf},
+    volume = {2025},
+    year = {2025}
+}</pre>
+            </details>
+          </div>
+        </div>
+      </article>
+
+       <p class="equal">* denotes equal contribution.</p>
+    </section>
+
+    <!-- ======================= TEACHING ======================= -->
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <ul class="entries">
+        <li>
+          <strong>Teaching Assistant</strong>, Interpretable Machine Learning
+          <div class="meta">IIT Kharagpur · Instructor: Prof. Koustav Rudra · [Autumn, 2026-27]</div>
+        </li>
+        <li>
+          <strong>Teaching Assistant</strong>, Executive Post Graduate Certificate in Generative AI & Agentic AI (Cohort 3)
+          <div class="meta">UpGrad · Instructor: Prof. Koustav Rudra · [Sep-Oct, 2026]</div>
+        </li>
+        <li>
+          <strong>Teaching Assistant</strong>, Executive Post Graduate Certificate in Generative AI & Agentic AI (Cohort 2)
+          <div class="meta">UpGrad · Instructor: Prof. Koustav Rudra · [Jul-Aug, 2026]</div>
+        </li>
+        <li>
+          <strong>Teaching Assistant</strong>, Executive Post Graduate Certificate in Generative AI & Agentic AI (Cohort 1)
+          <div class="meta">UpGrad · Instructor: Prof. Koustav Rudra · [May-Jun, 2026]</div>
+        </li>
+        <li>
+          <strong>Teaching Assistant</strong>, Deep Learning
+          <div class="meta">IIT Kharagpur · Instructor: Prof. Koustav Rudra · [Spring, 2025-26]</div>
+        </li>
+        <li>
+          <strong>Teaching Assistant</strong>, Interpretable Machine Learning
+          <div class="meta">IIT Kharagpur · Instructor: Prof. Koustav Rudra · [Autumn, 2025-26]</div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ======================= SERVICE ======================= -->
+    <section id="service">
+      <h2>Service</h2>
+      <ul class="entries">
+          <li><strong>Reviewer:</strong> ICLR 2026</li>
+          <li><strong>Reviewer:</strong> NeurIPS 2026</li>
+          <li><strong>Reviewer:</strong> ICML 2026</li>
+          <li><strong>Reviewer:</strong> ICLR 2025</li>
+          <li><strong>Emergency Reviewer:</strong> ACL ARR 2025 May</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Subhojyoti Khastagir · <a href="cv.pdf">CV (PDF)</a></span>
+      <span>Last updated: September 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    // Email assembled at runtime so simple scrapers can't harvest it
+    (function () {
+      var a = document.getElementById('email');
+      var addr = a.dataset.user + '@' + a.dataset.domain;
+      a.href = 'mailto:' + addr;
+      a.title = addr;
+    })();
+
+    // Light / dark toggle (follows system setting by default)
+    (function () {
+      var root = document.documentElement, btn = document.getElementById('themeBtn');
+      try { var saved = localStorage.getItem('theme'); if (saved) root.dataset.theme = saved; } catch (e) {}
+      btn.addEventListener('click', function () {
+        var dark = root.dataset.theme
+          ? root.dataset.theme === 'dark'
+          : matchMedia('(prefers-color-scheme: dark)').matches;
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
+      });
+    })();
+  </script>
 </body>
 </html>
